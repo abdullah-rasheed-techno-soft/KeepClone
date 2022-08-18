@@ -22,33 +22,126 @@
     <title>Google Keep</title>
   </head>
   <body id="body-pd">
-    <nav class="navbar navbar-expand-lg bg-white">
-      <div class="container-fluid">
-        <div class="container col-2 d-flex align-items-center p-1">
-          <div class="box me-3" title="Main Menu">
-            <i class="fa-solid fa-bars"></i>
-          </div>
-          <div class="box1 me-3" title="Keep">
-            <img id="logo" src="/img/keep.png" alt="keep logo" />
-          </div>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-white nav-bar">
+        <div class="container-fluid">
+          <!-- First container start -->
+          <div class="container col-2 d-flex align-items-center p-1">
+            <div class="box me-3 header_toggle" title="Main Menu">
+              <i class="fa-solid fa-bars bx bx-menu" id="header-toggle"></i>
+            </div>
+            <div class="box1 me-3" title="Keep">
+              <img id="logo" src="/img/keep.png" alt="keep logo" />
+            </div>
 
-          <div class="box1 me-3">
-            <span id="product-san" title="Keep">Keep</span>
+            <div class="box1 me-3">
+              <span id="product-san" title="Keep">Keep</span>
+            </div>
+            <!-- First container end -->
+          </div>
+          <!-- second container start -->
+          <div
+            class="container col-6 d-flex align-items-center p-1 rounded searchcontainer"
+          >
+            <div class="box" title="Search">
+              <!-- <i class="fa fa-search"></i> -->
+              <img src="/img/search.png" width="18" height="18" alt="search" />
+            </div>
+            <div class="container-fluid p-0">
+              <input
+                type="text"
+                id="search_input"
+                name="search_input"
+                placeholder="Search"
+              />
+            </div>
+            <div class="box" href="#" title="Search">
+              <img src="/img/close.png" width="13" height="13" alt="search" />
+            </div>
+          </div>
+          <!-- second container end -->
+          <div class="container col-1"></div>
+          <div class="container col-3 d-flex align-items-center">
+            <div class="box ms-5" title="Refresh">
+              <img
+                src="/img/refresh.png"
+                alt="refresh"
+                height="20"
+                width="20"
+              />
+            </div>
+            <div class="box ms-1" title="List View">
+              <img src="/img/equal.png" height="26" width="26" alt="list" />
+            </div>
+            <div class="box ms-1" title="Setting">
+              <img src="/img/gear.png" alt="setting" height="22" width="22" />
+            </div>
+            <div class="box ms-3" title="Google Apps">
+              <img
+                src="/img/application.png"
+                height="18"
+                width="18"
+                alt="app"
+              />
+            </div>
+            <div class="box ms-4" title="Google Account">
+              <img
+                src="/img/avatar.png"
+                alt="avatar"
+                width="35"
+                height="35"
+                style="opacity: 100%; border-radius: 50%"
+              />
+            </div>
           </div>
         </div>
-        <div class="container col-6">dfdfdf</div>
-        <div class="container col-4">dfdfdf</div>
-      </div>
-    </nav>
-    <!-- <header class="header" id="header">
-      <div class="header_toggle">
-        <i class="bx bx-menu" id="header-toggle">gggggg</i>
-      </div>
-      <div class="header_img">
-        <img src="https://i.imgur.com/hczKIze.jpg" alt="" />
-      </div>
+      </nav>
     </header>
-    <div class="l-navbar" id="nav-bar">
+    <div class="container-fluid d-flex m-0 p-0">
+      <div class="col-3">
+        <div
+          class="row p-3 me-5 mt-2 side"
+          style="background-color: #feefc3; border-radius: 0px 30px 30px 0px"
+        >
+          <div class="col-3 ps-4">
+            <img src="/img/bulb.png" width="22" height="22" alt="" />
+          </div>
+          <div class="col-9"><span>Notes</span></div>
+        </div>
+        <div class="row p-3 me-5 side">
+          <div class="col-3 ps-4">
+            <img src="/img/bell.png" width="20" height="20" alt="" />
+          </div>
+          <div class="col-9"><span>Reminders</span></div>
+        </div>
+        <div class="row p-3 me-5 side">
+          <div class="col-3 ps-4">
+            <img src="/img/pencil.png" width="20" height="20" alt="" />
+          </div>
+          <div class="col-9"><span>Edit Labels</span></div>
+        </div>
+        <div class="row p-3 me-5 side">
+          <div class="col-3 ps-4">
+            <img src="/img/archive.png" width="20" height="20" alt="" />
+          </div>
+          <div class="col-9"><span>Archive</span></div>
+        </div>
+        <div class="row p-3 me-5 side">
+          <div class="col-3 ps-4">
+            <img src="/img/trash.png" width="20" height="20" alt="" />
+          </div>
+          <div class="col-8"><span>Bin</span></div>
+        </div>
+        <div class="row p-3 me-5 source position-absolute bottom-0 ms-2">
+          <span style="color: #5f6576">Open-source licenses</span>
+        </div>
+      </div>
+      <div class="col-9" style="background-color: black">ddd</div>
+    </div>
+    <!-- <header class="header" id="header">
+    
+    </header> -->
+    <!-- <div class="l-navbar" id="nav-bar">
       <nav class="nav">
         <div>
           <a href="#" class="nav_logo">
