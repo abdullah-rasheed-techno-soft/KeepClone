@@ -22,7 +22,7 @@
     <title>Google Keep</title>
   </head>
   <body id="body-pd">
-    <header>
+    <header class="fixed-top">
       <nav class="navbar navbar-expand-lg bg-white nav-bar">
         <div class="container-fluid">
           <!-- First container start -->
@@ -97,46 +97,119 @@
         </div>
       </nav>
     </header>
-    <div class="container-fluid d-flex m-0 p-0">
-      <div class="col-3">
-        <div
-          class="row p-3 me-5 mt-2 side"
-          style="background-color: #feefc3; border-radius: 0px 30px 30px 0px"
-        >
+    <!-- below container -->
+    <div class="container-fluid d-flex m-0 p-0 mt-5">
+      <!-- sidebar -->
+      <div class="col-3 pe-5 mt-3" id="SidebarUL">
+        <div class="row p-3 me-5 mt-2 side Item active">
           <div class="col-3 ps-4">
             <img src="/img/bulb.png" width="22" height="22" alt="" />
           </div>
           <div class="col-9"><span>Notes</span></div>
         </div>
-        <div class="row p-3 me-5 side">
+        <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/bell.png" width="20" height="20" alt="" />
           </div>
           <div class="col-9"><span>Reminders</span></div>
         </div>
-        <div class="row p-3 me-5 side">
+        <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/pencil.png" width="20" height="20" alt="" />
           </div>
           <div class="col-9"><span>Edit Labels</span></div>
         </div>
-        <div class="row p-3 me-5 side">
+        <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/archive.png" width="20" height="20" alt="" />
           </div>
           <div class="col-9"><span>Archive</span></div>
         </div>
-        <div class="row p-3 me-5 side">
+        <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/trash.png" width="20" height="20" alt="" />
           </div>
           <div class="col-8"><span>Bin</span></div>
         </div>
-        <div class="row p-3 me-5 source position-absolute bottom-0 ms-2">
-          <span style="color: #5f6576">Open-source licenses</span>
+        <!-- <div class="d-flex align-items-end license">
+          <div class="row p-3 mt-auto source ms-2">
+            <span>Open-source licenses</span>
+          </div>
+        </div> -->
+      </div>
+      <!-- sidebar end -->
+
+      <div class="col-9">
+        <div class="row m-0 p-0">
+          <div class="col-9 mt-5 mb-4 d-flex justify-content-center">
+            <div
+              class="container-fluid taking-note p-0 w-75 d-flex align-items-center"
+            >
+              <div class="container-fluid col-9 py-2">
+                <input
+                  type="text"
+                  id="note_input"
+                  name="note_input"
+                  placeholder="Take a note..."
+                  style="width: 100%"
+                />
+              </div>
+              <div
+                class="container-fluid col-3 p-0 d-flex justify-content-around"
+              >
+                <div class="box2 p-2" title="New List">
+                  <img src="/img/newlist.png" alt="" />
+                </div>
+                <div class="box2 p-2" title="New note with drawing">
+                  <img src="/img/brush.png" alt="" />
+                </div>
+                <div class="box2 p-2 me-1" title="New note with image">
+                  <img src="/img/image.png" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container d-flex flex-wrap m-0 p-0">
+          <div class="container w-25 cardd pb-5 ps-3 pt-2 pe-2 m-0 me-2 mb-2">
+            <span>ssss</span>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Recusandae molestias quis, nisi magnam minus tenetur qui odio.
+              Voluptas eos fugit rem ex soluta pariatur laboriosam perspiciatis
+              quisquam dolorum harum. Eligendi, accusamus! Ipsa veritatis
+              doloremque repudiandae molestiae voluptatem excepturi accusantium
+              magni. Impedit voluptates nostrum minima suscipit quas tenetur
+              eius asperiores debitis cumque ea magni dolore, possimus veniam.
+            </p>
+          </div>
+
+          <div class="container w-25 cardd pb-5 ps-3 pt-2 pe-2 m-0 me-2 mb-2">
+            <span>ssss</span>
+            <p></p>
+          </div>
+
+          <div class="container w-25 cardd pb-5 ps-3 pt-2 pe-2 m-0 me-2 mb-2">
+            <span>ssss</span>
+            <p></p>
+          </div>
+
+          <div class="container w-25 cardd pb-5 ps-3 pt-2 pe-2 m-0 me-2 mb-2">
+            <span>ssss</span>
+            <p></p>
+          </div>
+
+          <div class="container w-25 cardd pb-5 ps-3 pt-2 pe-2 m-0 me-2 mb-2">
+            <span>ssss</span>
+            <p></p>
+          </div>
+
+          <div class="container w-25 cardd pb-5 ps-3 pt-2 pe-2 m-0 me-2 mb-2">
+            <span>ssss</span>
+            <p></p>
+          </div>
         </div>
       </div>
-      <div class="col-9" style="background-color: black">ddd</div>
     </div>
     <!-- <header class="header" id="header">
     

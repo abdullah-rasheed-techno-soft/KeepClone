@@ -23,12 +23,16 @@ body {
 
   border-radius: 0px 25px 25px 0px;
 }
+.license {
+  height: 19em;
+}
 .source {
   color: #5f6576;
   font-size: 12px;
   font-family: "Roboto", sans-serif;
 }
 .side {
+  cursor: pointer;
   font-family: "Roboto", sans-serif;
   font-weight: 600;
   /* opacity: 80%; */
@@ -47,6 +51,12 @@ body {
   align-items: center;
   cursor: pointer;
 }
+.box2 {
+  cursor: pointer;
+}
+/* box2{
+  width;
+} */
 .box i,
 .box img {
   text-align: center;
@@ -54,6 +64,39 @@ body {
   color: black;
   opacity: 60%;
 }
+
+.taking-note {
+  border-radius: 8px;
+
+  border: 1.5px #e0e0e0 solid;
+  /* width: 600px;
+  height: 45px; */
+  /* box-shadow: 2px 1px 3px 2px #c2c3c3; */
+  box-shadow: 4px 1px 7px #c2c3c3;
+}
+#note_input {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  border: none;
+  outline: none;
+}
+/* Take a note input 3 logos */
+.taking-note img {
+  opacity: 60%;
+  width: 20px;
+  height: 20px;
+}
+.active:hover {
+  background-color: #feefc3;
+}
+.cardd {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
 #search_input {
   font-size: 16px;
   width: 100%;
@@ -63,12 +106,18 @@ body {
   outline: none;
   background-color: #f1f3f4;
 }
-.box:hover {
-  border-radius: 50%;
+.active {
+  background-color: #feefc3;
+  border-radius: 0px 30px 30px 0px;
+}
+.box:hover,
+.box2:hover {
+  border-radius: 75px 75px 75px 75px;
   background-color: rgba(60, 64, 67, 0.08);
 }
 .box:hover > i,
-.box:hover > img {
+.box:hover > img,
+.box2:hover > img {
   opacity: 100%;
 }
 
