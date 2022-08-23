@@ -55,9 +55,9 @@ body {
   align-items: center;
   cursor: pointer;
 }
-textarea {
+/* textarea {
   resize: none;
-}
+} */
 .box2 {
   cursor: pointer;
 }
@@ -74,7 +74,13 @@ textarea::-webkit-scrollbar {
   color: black;
   opacity: 60%;
 }
-
+#close-a-note {
+  display: none;
+}
+.close {
+  display: none;
+  /* display: inline-flex; */
+}
 .taking-note {
   border-radius: 8px;
 
@@ -84,7 +90,7 @@ textarea::-webkit-scrollbar {
   /* box-shadow: 2px 1px 3px 2px #c2c3c3; */
   box-shadow: 4px 1px 7px #c2c3c3;
 }
-#note_input {
+.note_input {
   font-size: 14px;
   font-family: "Roboto", sans-serif;
   font-weight: bold;

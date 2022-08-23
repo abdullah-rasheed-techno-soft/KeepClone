@@ -1,12 +1,35 @@
-function textareaInput() {
-  alert("ddd");
-  const textarea = document.querySelector("textarea");
-
-  textarea.addEventListener("input", (e) => {
-    let scHeight = e.target.scrollHeight;
-    textarea.style.height = `${scHeight}px`;
-  });
+displayNotes();
+const textarea = document.querySelectorAll("textarea");
+textarea.forEach((area) =>
+  area.addEventListener(
+    "input",
+    (e) => {
+      let scHeight = e.target.scrollHeight;
+      area.style.height = `${scHeight}px`;
+    },
+    area.addEventListener("keydown", (e) => {
+      if (e.key === "Backspace") {
+        area.value = area.value.trim();
+        let scHeight = 21;
+        area.style.height = `${scHeight}px`;
+      }
+    })
+  )
+);
+function clearText(id) {
+  const searchInput = document.querySelector(id);
+  searchInput.value = "";
 }
+const searchInput = document.querySelector("#search_input");
+searchInput.addEventListener("input", (e) => {
+  const closed = document.querySelector(".close");
+  if (searchInput.value) {
+    closed.style.display = "inline-flex";
+  } else {
+    closed.style.display = "none";
+  }
+});
+
 const box = document.querySelector(".taking-note");
 document.addEventListener("click", function (event) {
   if (event.target.closest(".taking-note")) return;
@@ -61,82 +84,81 @@ for (var i = 0; i < btns.length; i++) {
   });
 }
 function clickingNote() {
-  document.querySelector("#inn").innerHTML = `   <div
-class="container-fluid taking-note p-0 w-75 align-items-center"
->
-<div class="container d-flex">
-  <div class="container-fluid col-11 py-2">
- 
-    <textarea
-    type="text"
-    id="title_input"
-    name="note_input"
-    placeholder="Title"
-    style="width: 100%"
-    
-    rows="1"
-  ></textarea>
-  </div>
-  <div
-    class="container-fluid col-1 p-0 d-flex justify-content-center"
-  >
-    <div class="box2 p-2" title="Pin Note">
-      <img src="/img/pin.png" alt="" />
-    </div>
-  </div>
-</div>
-<div class="container d-flex">
-  <div class="container-fluid col-12 py-2">
-    <textarea
-      type="text"
-      id="note_input"
-      name="note_input"
-      placeholder="Take a note..."
-      style="width: 100%"
-      onclick="textareaInput()"
-      rows="1"
-    ></textarea>
-  </div>
-</div>
-<div class="container d-flex">
-  <div class="container d-flex justify-content-end">
-    <button
-      onclick="closingNote()"
-      type="button"
-      class="btn btn mb-1"
-      style="border: none"
-    >
-      Close
-    </button>
-  </div>
-</div>
-</div>`;
+  let note1 = document.querySelector("#take-a-note");
+  let note2 = document.querySelector("#close-a-note");
+  let textarea = document.querySelector("#title_input");
+
+  note1.style.display = "none";
+  note2.style.display = "block";
+  textarea = textarea.focus();
+  // textarea.setAttribute("style", "background-color:red;");
+
+  // document.getElementById("title_input").autofocus = "true";
 }
 function closingNote() {
-  document.querySelector("#inn").innerHTML = ` <div
-  class="container-fluid taking-note p-0 w-75 d-flex align-items-center"
->
-  <div class="container-fluid col-9 py-2 hello"  onclick="clickingNote()">
-    <input
-      type="text"
-      id="note_input"
-      name="note_input"
-      placeholder="Take a note..."
-      style="width: 100%"
-    />
-  </div>
-  <div
-    class="container-fluid col-3 p-0 d-flex justify-content-around"
+  let title = document.querySelector("#title_input");
+  let desc = document.querySelector("#note_input");
+  let notes = localStorage.getItem("notes");
+  if (notes == null) {
+    notesObj = [];
+  } else {
+    notesObj = JSON.parse(notes);
+  }
+  if (title.value !== "" || desc.value !== "") {
+    notesObj.push([title.value, desc.value]);
+
+    localStorage.setItem("notes", JSON.stringify(notesObj));
+  }
+
+  const textarea = document.querySelectorAll("textarea");
+  textarea.forEach((area) => {
+    area.style.height = "21px";
+    area.value = "";
+    displayNotes();
+  });
+
+  let note1 = document.querySelector("#take-a-note");
+  let note2 = document.querySelector("#close-a-note");
+
+  note1.style.display = "block";
+  note2.style.display = "none";
+}
+function displayNotes() {
+  let notes = localStorage.getItem("notes");
+  if (notes == null) {
+    notesObj = [];
+  } else {
+    notesObj = JSON.parse(notes);
+  }
+  let html = "";
+  notesObj.forEach(function (element, index) {
+    html += `
+    <div
+    class="card mb-2 me-2 pb-4"
+    style="width: 15.2rem; border: 1px solid #e0e0e0"
   >
-    <div class="box2 p-2" title="New List">
-      <img src="/img/newlist.png" alt="" />
+    <div class="card-body">
+      <h6 class="card-title">${element[0]}</h6>
+      <p class="card-text">${element[1]}</p>
     </div>
-    <div class="box2 p-2" title="New note with drawing">
-      <img src="/img/brush.png" alt="" />
-    </div>
-    <div class="box2 p-2 me-1" title="New note with image">
-      <img src="/img/image.png" alt="" />
-    </div>
-  </div>
-</div>`;
+  </div>`;
+  });
+  let notesElm = document.getElementById("notes-area");
+  if (notesObj.length != 0) {
+    notesElm.innerHTML = html;
+  } else {
+    notesElm.innerHTML = `<div class="col d-flex flex-column align-items-center mt-5 pt-5 pe-5">
+            <img
+            src="/img/bulb.png"
+            width="100"
+            height="100"
+            alt=""
+            srcset=""
+            class="mt-4 me-5 opacity-25"
+          />
+          <h4 class="mt-3 me-5" style="color: #808688">
+            Notes you add appear here
+          </h4>
+        </div>`;
+  }
 }
