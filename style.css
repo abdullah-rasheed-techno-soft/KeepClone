@@ -74,6 +74,9 @@ textarea::-webkit-scrollbar {
   color: black;
   opacity: 60%;
 }
+.delete-option:hover {
+  cursor: pointer;
+}
 #close-a-note {
   display: none;
 }

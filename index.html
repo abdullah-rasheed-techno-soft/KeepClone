@@ -26,9 +26,13 @@
       <nav class="navbar navbar-expand-lg bg-white nav-bar">
         <div class="container-fluid">
           <!-- First container start -->
-          <div class="container col-2 d-flex align-items-center p-1">
-            <div class="box me-3 header_toggle" title="Main Menu">
-              <i class="fa-solid fa-bars bx bx-menu" id="header-toggle"></i>
+          <div class="col-2 d-flex align-items-center p-1">
+            <div
+              class="box me-3 header_toggle"
+              title="Main Menu"
+              onclick="sidebarAdjust()"
+            >
+              <i class="fa-solid fa-bars" id="header-toggle"></i>
             </div>
             <div class="box1 me-3" title="Keep">
               <img id="logo" src="/img/keep.png" alt="keep logo" />
@@ -41,7 +45,7 @@
           </div>
           <!-- second container start -->
           <div
-            class="container col-6 d-flex align-items-center p-1 rounded searchcontainer"
+            class="col-6 d-flex align-items-center p-1 rounded searchcontainer"
           >
             <div class="box" title="Search">
               <!-- <i class="fa fa-search"></i> -->
@@ -66,8 +70,8 @@
             </div>
           </div>
           <!-- second container end -->
-          <div class="container col-1"></div>
-          <div class="container col-3 d-flex align-items-center">
+          <div class="col-1"></div>
+          <div class="col-3 d-flex align-items-center">
             <div class="box ms-5" title="Refresh">
               <img
                 src="/img/refresh.png"
@@ -111,31 +115,31 @@
           <div class="col-3 ps-4">
             <img src="/img/bulb.png" width="22" height="22" alt="" />
           </div>
-          <div class="col-9"><span>Notes</span></div>
+          <div class="col-9 sidebar-text"><span>Notes</span></div>
         </div>
         <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/bell.png" width="20" height="20" alt="" />
           </div>
-          <div class="col-9"><span>Reminders</span></div>
+          <div class="col-9 sidebar-text"><span>Reminders</span></div>
         </div>
         <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/pencil.png" width="20" height="20" alt="" />
           </div>
-          <div class="col-9"><span>Edit Labels</span></div>
+          <div class="col-9 sidebar-text"><span>Edit Labels</span></div>
         </div>
         <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/archive.png" width="20" height="20" alt="" />
           </div>
-          <div class="col-9"><span>Archive</span></div>
+          <div class="col-9 sidebar-text"><span>Archive</span></div>
         </div>
         <div class="row p-3 me-5 side Item">
           <div class="col-3 ps-4">
             <img src="/img/trash.png" width="20" height="20" alt="" />
           </div>
-          <div class="col-8"><span>Bin</span></div>
+          <div class="col-9 sidebar-text"><span>Bin</span></div>
         </div>
         <!-- <div class="d-flex align-items-end license">
           <div class="row p-3 mt-auto source ms-2">
