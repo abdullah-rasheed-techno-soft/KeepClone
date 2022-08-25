@@ -1,61 +1,65 @@
 displayNotes();
-const textarea = document.querySelectorAll("textarea");
-textarea.forEach((area) =>
-  area.addEventListener(
+// function toggleZoomScreen() {
+//   document.body.style.zoom = "20%";
+//   setTimeout(change, 100);
+// }
+// function change() {
+//   console.log("in");
+//   document.body.style.zoom = "100%";
+// }
+//dynamic text area start
+const Textareas = document.querySelectorAll("textarea");
+Textareas.forEach((textarea) =>
+  textarea.addEventListener(
     "input",
     (e) => {
       const scHeight = e.target.scrollHeight;
-      area.style.height = `${scHeight}px`;
+      textarea.style.height = `${scHeight}px`;
     },
-    area.addEventListener("keydown", (e) => {
+    textarea.addEventListener("keydown", (e) => {
       if (e.key === "Backspace") {
-        area.value = area.value.trim();
+        textarea.value = textarea.value.trim();
         const scHeight = 21;
-        area.style.height = `${scHeight}px`;
+        textarea.style.height = `${scHeight}px`;
       }
     })
   )
 );
-function sidebarAdjust() {
-  const sideElements = document.querySelectorAll(".sidebar-text");
-  console.log(sideElements);
-  sideElements.forEach(function (element, index) {
-    console.log(element);
-  });
+//dynamic text area end
 
-  // sideElements.forEach((Elements) => {
-  //   if (Elements.style.display == "none") {
-  //     Elements.style.display = "block";
-  //   } else {
-  //     Elements.style.display = "none";
-  //   }
-  // });
+function sidebarAdjust() {
+  const sideElements = document.querySelectorAll(".Side-Items-text");
+  const Sidebar = document.getElementById("Sidebar");
+  if (Sidebar.classList.contains("col-3")) {
+    Sidebar.classList.remove("col-3");
+    Sidebar.classList.add("col-1");
+    Sidebar.classList.remove("pe-5");
+    Sidebar.classList.add("pe-0");
+  } else {
+    Sidebar.classList.remove("col-1");
+    Sidebar.classList.add("col-3");
+    Sidebar.classList.remove("pe-0");
+    Sidebar.classList.add("pe-5");
+  }
+
+  sideElements.forEach(function (element) {
+    if (element.style.display == "none") {
+      element.style.display = "block";
+    } else {
+      element.style.display = "none";
+    }
+  });
 }
+//clearing text start
 function clearText(id) {
-  const searchInput = document.querySelector(id);
+  const searchInput = document.getElementById(id);
   searchInput.value = "";
 }
-const searchInput = document.querySelector("#search_input");
-searchInput.addEventListener("input", (e) => {
-  const closed = document.querySelector(".close");
-  if (searchInput.value) {
-    closed.style.display = "inline-flex";
-  } else {
-    closed.style.display = "none";
-  }
-});
+//clearing text end
 
-const box = document.querySelector(".taking-note");
-document.addEventListener("click", function (event) {
-  if (event.target.closest(".taking-note")) return;
-  else {
-    closingNote();
-  }
-});
-
-var btnContainer = document.getElementById("SidebarUL");
+var btnContainer = document.getElementById("Sidebar");
 // Get all buttons with class="btn" inside the container
-var btns = btnContainer.getElementsByClassName("Item");
+var btns = btnContainer.getElementsByClassName("Side-Items");
 // Loop through the buttons and add the active class to the current/clicked button
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function () {
@@ -73,29 +77,28 @@ function clickingNote() {
   note2.style.display = "block";
   textarea = textarea.focus();
 }
-function closingNote() {
-  const title = document.querySelector("#title_input");
-  const desc = document.querySelector("#note_input");
-  const notes = localStorage.getItem("notes");
-  if (notes == null) {
-    notesObj = [];
-  } else {
-    notesObj = JSON.parse(notes);
-  }
+function addNote() {
+  const title = document.getElementById("title_input");
+  const desc = document.getElementById("note_input");
+
+  notesObj = JSON.parse(localStorage.getItem("notes")) || [];
   if (title.value !== "" || desc.value !== "") {
-    // notesObj.push([title.value, desc.value]);
     notesObj = [[title.value, desc.value], ...notesObj];
 
     console.log(notesObj);
     localStorage.setItem("notes", JSON.stringify(notesObj));
   }
+  closingNote();
+}
+//closing notes container start
+function closingNote() {
+  const title = document.getElementById("title_input");
+  const desc = document.getElementById("note_input");
+  clearText(title.id);
+  clearText(desc.id);
 
-  const textarea = document.querySelectorAll("textarea");
-  textarea.forEach((area) => {
-    area.style.height = "21px";
-    area.value = "";
-    displayNotes();
-  });
+  location.reload();
+  displayNotes();
 
   const note1 = document.querySelector("#take-a-note");
   const note2 = document.querySelector("#close-a-note");
@@ -103,12 +106,10 @@ function closingNote() {
   note1.style.display = "block";
   note2.style.display = "none";
 }
+//closing notes container end
 function displayNotes() {
-  const notes = localStorage.getItem("notes");
-  let notesObj = [];
-  if (notes !== null) {
-    notesObj = JSON.parse(notes);
-  }
+  notesObj = JSON.parse(localStorage.getItem("notes")) || [];
+
   let html = "";
   notesObj.forEach(function (element, index) {
     html += `
@@ -135,7 +136,6 @@ function displayNotes() {
   });
   const notesElm = document.getElementById("notes-area");
   if (notesObj.length != 0) {
-    // location.reload();
     notesElm.innerHTML = html;
   } else {
     notesElm.innerHTML = `<div class="col d-flex flex-column align-items-center mt-5 pt-5 pe-5">
@@ -156,40 +156,46 @@ function displayNotes() {
 }
 //delete
 function deleteNote(index) {
-  const notes = localStorage.getItem("notes");
-  if (notes == null) {
-    notesObj = [];
-  } else {
-    notesObj = JSON.parse(notes);
-  }
+  notesObj = JSON.parse(localStorage.getItem("notes")) || [];
 
   notesObj.splice(index, 1);
   localStorage.setItem("notes", JSON.stringify(notesObj));
+  location.reload();
   displayNotes();
 }
+// const search = document.querySelector("#search_input");
+// search.addEventListener("input", (e) => {
+
+// });
 // search functionality
-const search = document.getElementById("search_input");
-search.addEventListener("input", function () {
-  const inputVal = search.value.toLowerCase();
+const searchInput = document.getElementById("search_input");
+searchInput.addEventListener("input", function () {
+  const note1 = document.getElementById("take-a-note");
+  const notesarea = document.getElementById("notes-area");
+  const closed = document.querySelector(".close");
+
+  if (searchInput.value) {
+    note1.style.display = "none";
+    closed.style.display = "inline-flex";
+    notesarea.classList.add("mt-5");
+  } else {
+    closed.style.display = "none";
+    note1.style.display = "block";
+    notesarea.classList.remove("mt-5");
+  }
+  const inputVal = searchInput.value.toLowerCase();
   const noteCards = document.getElementsByClassName("noteCard");
   Array.from(noteCards).forEach(function (element) {
-    const title = element.getElementsByTagName("h6")[0].innerText;
-    const desc = element.getElementsByTagName("p")[0].innerText;
-    const note1 = document.querySelector("#take-a-note");
-    const notesarea = document.querySelector("#notes-area");
+    const title = element.querySelector(".card-title").innerText;
+    const desc = element.querySelector(".card-text").innerText;
 
-    if (search.value !== "") {
-      note1.style.display = "none";
-      notesarea.classList.add("mt-5");
-    } else {
-      note1.style.display = "block";
-      notesarea.classList.remove("mt-5");
-    }
-    if (title.includes(inputVal) | desc.includes(inputVal)) {
+    if (
+      title.toLowerCase().includes(inputVal) |
+      desc.toLowerCase().includes(inputVal)
+    ) {
       element.style.display = "block";
     } else {
       element.style.display = "none";
     }
-    // console.log(cardTxt);
   });
 });
