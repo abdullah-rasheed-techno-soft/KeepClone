@@ -132,6 +132,7 @@
           </div>
           <div class="col-9 Side-Items-text"><span>Bin</span></div>
         </div>
+
         <!-- <div class="d-flex align-items-end license">
           <div class="row p-3 mt-auto source ms-2">
             <span>Open-source licenses</span>
@@ -261,9 +262,50 @@
                 quaerat laboriosam est? Odio soluta quidem, velit tempore harum
                 similique?
               </h6>
-              <p class="card-text">${element[1]}</p>
+              <p class="card-text">${element[1]}</p>-
             </div>
           </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="Edit-Notes">
+      <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body p-0"></div>
+
+          <div class="container-fluid col-11 py-2 ms-0">
+            <textarea
+              class="border-0"
+              type="text"
+              class="note_inputt"
+              id="title_input_modal"
+              placeholder="Title"
+              style="width: 100%"
+              rows="1"
+            ></textarea>
+          </div>
+
+          <div class="container-fluid col-12 py-2">
+            <textarea
+              type="text"
+              class="note_inputt"
+              id="note_input_modal"
+              placeholder="Note"
+              style="width: 100%"
+              rows="1"
+            ></textarea>
+          </div>
+
+          <div class="container d-flex justify-content-end">
+            <button
+              data-bs-dismiss="modal"
+              type="button"
+              class="btn btn mb-1"
+              style="border: none"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>

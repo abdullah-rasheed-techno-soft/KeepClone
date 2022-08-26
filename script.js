@@ -88,7 +88,7 @@ function addNote() {
     console.log(notesObj);
     localStorage.setItem("notes", JSON.stringify(notesObj));
   }
-  closingNote();
+  // closingNote();
 }
 //closing notes container start
 function closingNote() {
@@ -112,10 +112,11 @@ function displayNotes() {
 
   let html = "";
   notesObj.forEach(function (element, index) {
+    console.log(element[0]);
     html += `
     <div
-    class="card noteCard mb-2 me-2 pb-0"
-    style="width: 15.2rem; border: 1px solid #e0e0e0"
+    class="card noteCard  mb-2 me-2 pb-0 " data-bs-toggle="modal" data-bs-target="#Edit-Notes"
+
   >
     <div class="card-body">
       <h6 class="card-title">${element[0]}</h6>
@@ -154,6 +155,7 @@ function displayNotes() {
         </div>`;
   }
 }
+
 //delete
 function deleteNote(index) {
   notesObj = JSON.parse(localStorage.getItem("notes")) || [];
@@ -163,19 +165,18 @@ function deleteNote(index) {
   location.reload();
   displayNotes();
 }
-// const search = document.querySelector("#search_input");
-// search.addEventListener("input", (e) => {
 
-// });
 // search functionality
 const searchInput = document.getElementById("search_input");
 searchInput.addEventListener("input", function () {
   const note1 = document.getElementById("take-a-note");
+  const note2 = document.getElementById("close-a-note");
   const notesarea = document.getElementById("notes-area");
   const closed = document.querySelector(".close");
 
   if (searchInput.value) {
     note1.style.display = "none";
+    note2.style.display = "none";
     closed.style.display = "inline-flex";
     notesarea.classList.add("mt-5");
   } else {
@@ -197,5 +198,29 @@ searchInput.addEventListener("input", function () {
     } else {
       element.style.display = "none";
     }
+  });
+});
+
+const noteCards = document.querySelectorAll(".noteCard");
+
+noteCards.forEach(function (element, index) {
+  element.addEventListener("click", function () {
+    const title = element.querySelector(".card-title");
+    const desc = element.querySelector(".card-text");
+    console.log(title);
+    document.getElementById("title_input_modal").value = title.innerText;
+    document.getElementById("note_input_modal").value = desc.innerText;
+    document
+      .getElementById("title_input_modal")
+      .addEventListener("change", function () {
+        element.querySelector(".card-title").innerText =
+          document.getElementById("title_input_modal").value;
+      });
+    document
+      .getElementById("note_input_modal")
+      .addEventListener("change", function () {
+        element.querySelector(".card-text").innerText =
+          document.getElementById("note_input_modal").value;
+      });
   });
 });
