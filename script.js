@@ -1,13 +1,5 @@
 displayNotes();
-// function toggleZoomScreen() {
-//   document.body.style.zoom = "20%";
-//   setTimeout(change, 100);
-// }
-// function change() {
-//   console.log("in");
-//   document.body.style.zoom = "100%";
-// }
-//dynamic text area start
+
 const Textareas = document.querySelectorAll("textarea");
 Textareas.forEach((textarea) =>
   textarea.addEventListener(
@@ -15,6 +7,7 @@ Textareas.forEach((textarea) =>
     (e) => {
       const scHeight = e.target.scrollHeight;
       textarea.style.height = `${scHeight}px`;
+      // console.log(textarea.style.height);
     },
     textarea.addEventListener("keydown", (e) => {
       if (e.key === "Backspace") {
@@ -25,6 +18,7 @@ Textareas.forEach((textarea) =>
     })
   )
 );
+
 //dynamic text area end
 
 function sidebarAdjust() {
@@ -57,21 +51,20 @@ function clearText(id) {
 }
 //clearing text end
 
-var btnContainer = document.getElementById("Sidebar");
-// Get all buttons with class="btn" inside the container
-var btns = btnContainer.getElementsByClassName("Side-Items");
-// Loop through the buttons and add the active class to the current/clicked button
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function () {
-    var current = document.getElementsByClassName(" active");
-    current[0].className = current[0].className.replace(" active", "");
+const btns = document.querySelectorAll(".Side-Items");
+btns.forEach(function (element) {
+  element.addEventListener("click", function () {
+    let curr = document.getElementsByClassName(" active");
+    curr[0].className = curr[0].className.replace(" active", "");
     this.className += " active";
   });
-}
+});
+
 function clickingNote() {
   const note1 = document.querySelector("#take-a-note");
   const note2 = document.querySelector("#close-a-note");
   let textarea = document.querySelector("#title_input");
+  document.getElementById("search_input").disabled = "true";
 
   note1.style.display = "none";
   note2.style.display = "block";
@@ -81,14 +74,14 @@ function addNote() {
   const title = document.getElementById("title_input");
   const desc = document.getElementById("note_input");
 
-  notesObj = JSON.parse(localStorage.getItem("notes")) || [];
+  let notesObj = JSON.parse(localStorage.getItem("notes")) || [];
   if (title.value !== "" || desc.value !== "") {
-    notesObj = [[title.value, desc.value], ...notesObj];
+    notesObj = [[title.value.trim(), desc.value.trim()], ...notesObj];
 
     console.log(notesObj);
     localStorage.setItem("notes", JSON.stringify(notesObj));
   }
-  // closingNote();
+  closingNote();
 }
 //closing notes container start
 function closingNote() {
@@ -108,14 +101,15 @@ function closingNote() {
 }
 //closing notes container end
 function displayNotes() {
-  notesObj = JSON.parse(localStorage.getItem("notes")) || [];
+  let notesObj = JSON.parse(localStorage.getItem("notes")) || [];
 
   let html = "";
   notesObj.forEach(function (element, index) {
-    console.log(element[0]);
+    element[0] = element[0].replaceAll("\n", "<br>");
+    element[1] = element[1].replaceAll("\n", "<br>");
     html += `
     <div
-    class="card noteCard  mb-2 me-2 pb-0 " data-bs-toggle="modal" data-bs-target="#Edit-Notes"
+    class="card noteCard  mb-2 me-2 pb-0 " data-bs-toggle="modal" data-bs-target="#Edit-Notes" id="i${index}" 
 
   >
     <div class="card-body">
@@ -130,6 +124,7 @@ function displayNotes() {
       class="delete-option opacity-75"
       id="${index}"
       onclick="deleteNote(this.id)"
+    
 
     />
     </div>
@@ -158,8 +153,7 @@ function displayNotes() {
 
 //delete
 function deleteNote(index) {
-  notesObj = JSON.parse(localStorage.getItem("notes")) || [];
-
+  let notesObj = JSON.parse(localStorage.getItem("notes")) || [];
   notesObj.splice(index, 1);
   localStorage.setItem("notes", JSON.stringify(notesObj));
   location.reload();
@@ -184,6 +178,10 @@ searchInput.addEventListener("input", function () {
     note1.style.display = "block";
     notesarea.classList.remove("mt-5");
   }
+  closed.addEventListener("click", function () {
+    searchInput.value = "";
+    searchInput.focus();
+  });
   const inputVal = searchInput.value.toLowerCase();
   const noteCards = document.getElementsByClassName("noteCard");
   Array.from(noteCards).forEach(function (element) {
@@ -207,20 +205,61 @@ noteCards.forEach(function (element, index) {
   element.addEventListener("click", function () {
     const title = element.querySelector(".card-title");
     const desc = element.querySelector(".card-text");
-    console.log(title);
+    const TitledefaultHeight = 33;
+    const DescdefaultHeight = 24;
+    const titleLines = Lines(title.innerText);
+    const descLines = Lines(desc.innerText);
+
+    document.getElementById("title_input_modal").style.height = `${
+      titleLines * TitledefaultHeight
+    }px`;
+    document.getElementById("note_input_modal").style.height = `${
+      descLines * DescdefaultHeight
+    }px`;
+
     document.getElementById("title_input_modal").value = title.innerText;
     document.getElementById("note_input_modal").value = desc.innerText;
     document
       .getElementById("title_input_modal")
       .addEventListener("change", function () {
-        element.querySelector(".card-title").innerText =
-          document.getElementById("title_input_modal").value;
+        element.querySelector(".card-title").innerText = document
+          .getElementById("title_input_modal")
+          .value.trim();
+        console.log(index);
       });
+    console.log(document.getElementById("title_input_modal"));
     document
       .getElementById("note_input_modal")
       .addEventListener("change", function () {
-        element.querySelector(".card-text").innerText =
-          document.getElementById("note_input_modal").value;
+        element.querySelector(".card-text").innerText = document
+          .getElementById("note_input_modal")
+          .value.trim();
       });
   });
 });
+
+//Edit Notes
+function UpdateNotes() {
+  localStorage.removeItem("notes");
+  const noteCard = document.querySelectorAll(".noteCard");
+
+  let notesObj = [];
+  noteCard.forEach(function (card) {
+    const title = card.querySelector(".card-title");
+    const desc = card.querySelector(".card-text");
+
+    notesObj.push([title.innerText, desc.innerText]);
+  });
+  localStorage.setItem("notes", JSON.stringify(notesObj));
+  // location.reload();
+}
+
+//modal close event
+const modalClose = document.getElementById("Edit-Notes");
+modalClose.addEventListener("hidden.bs.modal", function () {
+  UpdateNotes();
+});
+function Lines(text) {
+  const lines = text.split("\n");
+  return lines.length;
+}

@@ -23,9 +23,7 @@ body {
 
   border-radius: 0px 25px 25px 0px;
 }
-.license {
-  height: 19em;
-}
+
 .btn:hover {
   background-color: #f1f3f4;
 }
@@ -77,6 +75,7 @@ textarea::-webkit-scrollbar {
 
 .delete-option:hover {
   cursor: pointer;
+  background-color: #feefc3;
 }
 #close-a-note {
   display: none;
