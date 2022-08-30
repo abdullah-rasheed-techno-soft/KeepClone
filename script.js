@@ -1,5 +1,5 @@
 displayNotes();
-
+//dynamic text area start
 const Textareas = document.querySelectorAll("textarea");
 Textareas.forEach((textarea) =>
   textarea.addEventListener(
@@ -7,7 +7,6 @@ Textareas.forEach((textarea) =>
     (e) => {
       const scHeight = e.target.scrollHeight;
       textarea.style.height = `${scHeight}px`;
-      // console.log(textarea.style.height);
     },
     textarea.addEventListener("keydown", (e) => {
       if (e.key === "Backspace") {
@@ -18,7 +17,12 @@ Textareas.forEach((textarea) =>
     })
   )
 );
-
+Textareas.forEach((textarea) =>
+  textarea.addEventListener("focus", (e) => {
+    const scHeight = e.target.scrollHeight;
+    textarea.style.height = `${scHeight}px`;
+  })
+);
 //dynamic text area end
 
 function sidebarAdjust() {
@@ -37,11 +41,9 @@ function sidebarAdjust() {
   }
 
   sideElements.forEach(function (element) {
-    if (element.style.display == "none") {
-      element.style.display = "block";
-    } else {
-      element.style.display = "none";
-    }
+    element.style.display == "none"
+      ? (element.style.display = "block")
+      : (element.style.display = "none");
   });
 }
 //clearing text start
@@ -54,22 +56,22 @@ function clearText(id) {
 const btns = document.querySelectorAll(".Side-Items");
 btns.forEach(function (element) {
   element.addEventListener("click", function () {
-    let curr = document.getElementsByClassName(" active");
-    curr[0].className = curr[0].className.replace(" active", "");
-    this.className += " active";
+    let curr = document.querySelector(".active");
+    curr.classList.remove("active");
+    this.classList.add("active");
   });
 });
 
+//For entering note -start
 function clickingNote() {
-  const note1 = document.querySelector("#take-a-note");
-  const note2 = document.querySelector("#close-a-note");
-  let textarea = document.querySelector("#title_input");
-  document.getElementById("search_input").disabled = "true";
-
-  note1.style.display = "none";
-  note2.style.display = "block";
-  textarea = textarea.focus();
+  document.getElementById("take-a-note").style.display = "none"; //disabling general note section
+  document.getElementById("close-a-note").style.display = "block"; //enabling actual input section
+  document.getElementById("search_input").disabled = "true"; //disabling search bar
+  document.getElementById("title_input").focus();
 }
+//For entering note -end
+
+//Adding notes start
 function addNote() {
   const title = document.getElementById("title_input");
   const desc = document.getElementById("note_input");
@@ -81,25 +83,10 @@ function addNote() {
     console.log(notesObj);
     localStorage.setItem("notes", JSON.stringify(notesObj));
   }
-  closingNote();
-}
-//closing notes container start
-function closingNote() {
-  const title = document.getElementById("title_input");
-  const desc = document.getElementById("note_input");
-  clearText(title.id);
-  clearText(desc.id);
-
   location.reload();
-  displayNotes();
-
-  const note1 = document.querySelector("#take-a-note");
-  const note2 = document.querySelector("#close-a-note");
-
-  note1.style.display = "block";
-  note2.style.display = "none";
 }
-//closing notes container end
+//Adding notes end
+
 function displayNotes() {
   let notesObj = JSON.parse(localStorage.getItem("notes")) || [];
 
@@ -107,47 +94,13 @@ function displayNotes() {
   notesObj.forEach(function (element, index) {
     element[0] = element[0].replaceAll("\n", "<br>");
     element[1] = element[1].replaceAll("\n", "<br>");
-    html += `
-    <div
-    class="card noteCard  mb-2 me-2 pb-0 " data-bs-toggle="modal" data-bs-target="#Edit-Notes" id="i${index}" 
-
-  >
-    <div class="card-body">
-      <h6 class="card-title">${element[0]}</h6>
-      <p class="card-text mb-1">${element[1]}</p>
-      <img
-      src="/img/trash.png"
-      width="20"
-      height="20"
-      alt=""
-      srcset=""
-      class="delete-option opacity-75"
-      id="${index}"
-      onclick="deleteNote(this.id)"
-    
-
-    />
-    </div>
-  </div>`;
+    html += NoteCards(element, index);
   });
   const notesElm = document.getElementById("notes-area");
   if (notesObj.length != 0) {
     notesElm.innerHTML = html;
   } else {
-    notesElm.innerHTML = `<div class="col d-flex flex-column align-items-center mt-5 pt-5 pe-5">
-            <img
-            src="/img/bulb.png"
-            width="100"
-            height="100"
-            alt=""
-            srcset=""
-            class="mt-4 me-5 opacity-25"
-          />
-          <h4 class="mt-3 me-5" style="color: #808688">
-            Notes you add appear here
-          </h4>
-          
-        </div>`;
+    notesElm.innerHTML = emptyNotes();
   }
 }
 
@@ -202,56 +155,44 @@ searchInput.addEventListener("input", function () {
 const noteCards = document.querySelectorAll(".noteCard");
 
 noteCards.forEach(function (element, index) {
-  element.addEventListener("click", function () {
+  element.addEventListener("click", () => {
+    localStorage.setItem("Flag", index);
+
     const title = element.querySelector(".card-title");
     const desc = element.querySelector(".card-text");
     const TitledefaultHeight = 33;
     const DescdefaultHeight = 24;
     const titleLines = Lines(title.innerText);
     const descLines = Lines(desc.innerText);
-
     document.getElementById("title_input_modal").style.height = `${
       titleLines * TitledefaultHeight
     }px`;
     document.getElementById("note_input_modal").style.height = `${
       descLines * DescdefaultHeight
     }px`;
-
     document.getElementById("title_input_modal").value = title.innerText;
     document.getElementById("note_input_modal").value = desc.innerText;
-    document
-      .getElementById("title_input_modal")
-      .addEventListener("change", function () {
-        element.querySelector(".card-title").innerText = document
-          .getElementById("title_input_modal")
-          .value.trim();
-        console.log(index);
-      });
-    console.log(document.getElementById("title_input_modal"));
-    document
-      .getElementById("note_input_modal")
-      .addEventListener("change", function () {
-        element.querySelector(".card-text").innerText = document
-          .getElementById("note_input_modal")
-          .value.trim();
-      });
   });
 });
 
 //Edit Notes
 function UpdateNotes() {
-  localStorage.removeItem("notes");
-  const noteCard = document.querySelectorAll(".noteCard");
-
-  let notesObj = [];
-  noteCard.forEach(function (card) {
-    const title = card.querySelector(".card-title");
-    const desc = card.querySelector(".card-text");
-
-    notesObj.push([title.innerText, desc.innerText]);
-  });
+  const Index = localStorage.getItem("Flag");
+  const notesObj = JSON.parse(localStorage.getItem("notes"));
+  notesObj[Index] = [
+    document.getElementById("title_input_modal").value,
+    document.getElementById("note_input_modal").value,
+  ];
   localStorage.setItem("notes", JSON.stringify(notesObj));
-  // location.reload();
+  const noteCards = document.querySelectorAll(".noteCard");
+  noteCards.forEach((element, index) => {
+    if (index == Index) {
+      element.querySelector(".card-title").innerText =
+        document.getElementById("title_input_modal").value;
+      element.querySelector(".card-text").innerText =
+        document.getElementById("note_input_modal").value;
+    }
+  });
 }
 
 //modal close event
@@ -259,7 +200,56 @@ const modalClose = document.getElementById("Edit-Notes");
 modalClose.addEventListener("hidden.bs.modal", function () {
   UpdateNotes();
 });
+
 function Lines(text) {
   const lines = text.split("\n");
   return lines.length;
+}
+//modal open event
+const modalOpen = document.getElementById("Edit-Notes");
+modalOpen.addEventListener("shown.bs.modal", function () {
+  document.getElementById("title_input_modal").focus();
+  document.getElementById("note_input_modal").focus();
+});
+
+function emptyNotes() {
+  return `<div class="col d-flex flex-column align-items-center mt-5 pt-5 pe-5">
+  <img
+  src="/img/bulb.png"
+  width="100"
+  height="100"
+  alt=""
+  srcset=""
+  class="mt-4 me-5 opacity-25"
+/>
+<h4 class="mt-3 me-5" style="color: #808688">
+  Notes you add appear here
+</h4>
+
+</div>`;
+}
+
+function NoteCards(element, index) {
+  return `
+  <div
+  class="card noteCard  mb-2 me-2 pb-0 " data-bs-toggle="modal" data-bs-target="#Edit-Notes" id="i${index}" 
+
+>
+  <div class="card-body">
+    <h6 class="card-title">${element[0]}</h6>
+    <p class="card-text mb-1">${element[1]}</p>
+    <img
+    src="/img/trash.png"
+    width="20"
+    height="20"
+    alt=""
+    srcset=""
+    class="delete-option opacity-75"
+    id="${index}"
+    onclick="deleteNote(this.id)"
+  
+
+  />
+  </div>
+</div>`;
 }
