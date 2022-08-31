@@ -63,7 +63,7 @@
           <!-- second container end (Search)-->
           <div class="col-1"></div>
           <div class="col-3 d-flex align-items-center">
-            <div class="box ms-5" title="Refresh">
+            <div class="box ms-5" title="Refresh" onclick="location.reload()">
               <img
                 src="/img/refresh.png"
                 alt="refresh"
@@ -229,6 +229,8 @@
         ></div>
       </div>
     </div>
+
+    <!-- Modal for Editing notes -->
     <div class="modal fade" id="Edit-Notes">
       <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">
@@ -238,7 +240,6 @@
             <textarea
               class="border-0"
               type="text"
-              class="note_inputt"
               id="title_input_modal"
               placeholder="Title"
               style="width: 100%"
@@ -249,7 +250,6 @@
           <div class="container-fluid col-12 py-2">
             <textarea
               type="text"
-              class="note_inputt"
               id="note_input_modal"
               placeholder="Note"
               style="width: 100%"

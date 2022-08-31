@@ -180,17 +180,19 @@ function UpdateNotes() {
   const Index = localStorage.getItem("Flag");
   const notesObj = JSON.parse(localStorage.getItem("notes"));
   notesObj[Index] = [
-    document.getElementById("title_input_modal").value,
-    document.getElementById("note_input_modal").value,
+    document.getElementById("title_input_modal").value.trim(),
+    document.getElementById("note_input_modal").value.trim(),
   ];
   localStorage.setItem("notes", JSON.stringify(notesObj));
   const noteCards = document.querySelectorAll(".noteCard");
   noteCards.forEach((element, index) => {
     if (index == Index) {
-      element.querySelector(".card-title").innerText =
-        document.getElementById("title_input_modal").value;
-      element.querySelector(".card-text").innerText =
-        document.getElementById("note_input_modal").value;
+      element.querySelector(".card-title").innerText = document
+        .getElementById("title_input_modal")
+        .value.trim();
+      element.querySelector(".card-text").innerText = document
+        .getElementById("note_input_modal")
+        .value.trim();
     }
   });
 }
