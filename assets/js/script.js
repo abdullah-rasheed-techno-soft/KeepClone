@@ -80,7 +80,7 @@ function addNote() {
   if (title.value !== "" || desc.value !== "") {
     notesObj = [[title.value.trim(), desc.value.trim()], ...notesObj];
 
-    console.log(notesObj);
+    // console.log(notesObj);
     localStorage.setItem("notes", JSON.stringify(notesObj));
   }
   location.reload();
